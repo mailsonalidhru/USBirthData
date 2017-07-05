@@ -34,10 +34,11 @@ def fnCalculateBirth(rec, dict):
         dict[rec[0]] = {rec[1] : int(rec[4])}
     return dict
 
-
+　
 ##### Variables Initialization #####
 dictFriday = defaultdict(list)
 dictWeekends = defaultdict(list)
+dictLeapDay = defaultdict(list)
 ##### Processing Section #####
 
 # Read Data 
@@ -56,14 +57,21 @@ for rec in arrFileContents:
         # For Key [Year], List of Values of [[Month][Count]]
         dictFriday = fnCalculateBirth(rec, dictFriday)
     #### Num of Births on Weekend Year  & Month
-    # 0 Year, 1 Month, 2 Date Of Month, 3 Day Of Week, Births
     # Data Structure: Dictionary [Year]:[[Month][Count]]
     if (int(rec[3]) == 6 or int(rec[3]) == 7):
         # For Key [Year], List of Values of [[Month][Count]]
         dictWeekends = fnCalculateBirth(rec, dictWeekends)
+    #### Num of Births on Weekend Year  & Month
+    # Data Structure: Dictionary [Year]:[[Count]]
+    if (int(rec[1]) == 2 and int(rec[2]) == 29):
+        # For Key [Year], List of Values of [[Month][Count]]
+        dictLeapDay[rec[0]].append(rec[4])
 
 print ("\n #### Num of Births on 13th Friday ##### ")
 pprint.pprint(dictFriday)
 
 print ("\n #### Num of Births on Weekends ##### ")
 pprint.pprint(dictWeekends)
+
+print ("\n #### Num of Births on Leap Days ##### ")
+pprint.pprint(dictLeapDay)
